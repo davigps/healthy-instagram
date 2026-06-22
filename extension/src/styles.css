@@ -6,6 +6,12 @@
   pointer-events: none !important;
 }
 
+/* Home feed posts — stories tray stays visible above these */
+html.healthy-instagram-home main article,
+html.healthy-instagram-home main div[data-visualcompletion="loading-state"][role="progressbar"] {
+  display: none !important;
+}
+
 /* Sidebar / menu Reels row (desktop) */
 div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > a[href="/reels/"]),
 div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > a[href="/reels"]) {
@@ -35,5 +41,45 @@ footer a[href="/accounts/activity/"],
 footer a[href="/accounts/activity"],
 footer a[aria-label="Notifications"],
 footer a[role="link"]:has(svg[aria-label="Notifications"]) {
+  display: none !important;
+}
+
+/* Sidebar / menu Search & Explore row (desktop) */
+div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > :is(a[href="/explore/"], a[href="/explore"])),
+div[data-visualcompletion="ignore-dynamic"] > div:has(input[placeholder="Search"]) {
+  display: none !important;
+}
+
+/* Search / Explore tab in nav */
+nav a[href="/explore/"],
+nav a[href="/explore"],
+nav a[aria-label="Search"],
+nav a[aria-label="Explore"],
+nav a[role="link"]:has(svg[aria-label="Search"]),
+nav a[role="link"]:has(svg[aria-label="Explore"]),
+footer a[href="/explore/"],
+footer a[href="/explore"],
+footer a[aria-label="Search"],
+footer a[aria-label="Explore"],
+footer a[role="link"]:has(svg[aria-label="Search"]),
+footer a[role="link"]:has(svg[aria-label="Explore"]) {
+  display: none !important;
+}
+
+/* Create / New post button in nav and sidebar */
+nav a[href="/create/"],
+nav a[href="/create"],
+nav a[aria-label="New post"],
+nav a[aria-label="New Post"],
+nav a[aria-label="Create"],
+nav a[role="link"]:has(svg[aria-label="New post"]),
+nav a[role="link"]:has(svg[aria-label="New Post"]),
+nav a[role="link"]:has(svg[aria-label="Create"]),
+footer a[href="/create/"],
+footer a[href="/create"],
+footer a[aria-label="New post"],
+footer a[aria-label="New Post"],
+footer a[aria-label="Create"],
+div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > :is(a[href="/create/"], a[href="/create"])) {
   display: none !important;
 }
