@@ -7,6 +7,7 @@ struct ContentView: View {
                 Section {
                     Label("Hide distracting Instagram UI", systemImage: "eye.slash")
                     Label("Reels icon hidden on instagram.com", systemImage: "play.rectangle")
+                    Label("Notifications hidden on instagram.com", systemImage: "heart.slash")
                 }
 
                 Section("Enable on iPhone") {
