@@ -19,3 +19,21 @@ footer a[href="/reels/"],
 footer a[href="/reels"] {
   display: none !important;
 }
+
+/* Sidebar / menu Notifications row (desktop) */
+div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > a[href="/accounts/activity/"]),
+div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > a[href="/accounts/activity"]) {
+  display: none !important;
+}
+
+/* Notifications tab — heart icon in nav */
+nav a[href="/accounts/activity/"],
+nav a[href="/accounts/activity"],
+nav a[aria-label="Notifications"],
+nav a[role="link"]:has(svg[aria-label="Notifications"]),
+footer a[href="/accounts/activity/"],
+footer a[href="/accounts/activity"],
+footer a[aria-label="Notifications"],
+footer a[role="link"]:has(svg[aria-label="Notifications"]) {
+  display: none !important;
+}

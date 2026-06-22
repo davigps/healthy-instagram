@@ -1,13 +1,13 @@
 # Healthy Instagram
 
-A Safari Web Extension for iOS (and macOS) that hides distracting UI elements on [instagram.com](https://www.instagram.com). The first feature hides the **Reels icon** from Instagram's navigation.
+A Safari Web Extension for iOS (and macOS) that hides distracting UI elements on [instagram.com](https://www.instagram.com). It hides the **Reels icon** and **Notifications** from Instagram's navigation, and redirects away from the notifications page.
 
 ## How it works
 
 Instagram is a single-page app that re-renders its navigation as you browse. This extension combines:
 
-1. **CSS** (`extension/src/styles.css`) — hides Reels links immediately when the page loads
-2. **Content script** (`extension/src/content.js`) — finds Reels nav elements by stable attributes (`href`, `aria-label`) and re-applies hiding after DOM changes via `MutationObserver`
+1. **CSS** (`extension/src/styles.css`) — hides Reels and Notifications links immediately when the page loads
+2. **Content script** (`extension/src/content.js`) — finds nav elements by stable attributes (`href`, `aria-label`) and re-applies hiding after DOM changes via `MutationObserver`
 
 Selectors are intentionally based on URLs and accessibility labels instead of Instagram's generated CSS class names, which change frequently.
 
@@ -52,7 +52,7 @@ This uses Apple's `safari-web-extension-converter` to create `ios/HealthyInstagr
 
 1. On iPhone: **Settings → Safari → Extensions**
 2. Turn on **Healthy Instagram**
-3. Open [instagram.com](https://www.instagram.com) in Safari — the Reels icon should be hidden
+3. Open [instagram.com](https://www.instagram.com) in Safari — the Reels icon and Notifications should be hidden
 
 ### Test on macOS Safari (faster iteration)
 
@@ -77,6 +77,8 @@ You can test the hiding logic in any Chromium browser for quick iteration:
 | Element | Selector strategy | Pages |
 |---------|-------------------|-------|
 | Reels nav icon | `a[href="/reels/"]`, `aria-label="Reels"`, parent nav rows | All instagram.com pages |
+| Notifications nav icon | `a[href="/accounts/activity/"]`, `aria-label="Notifications"`, `svg[aria-label="Notifications"]` | All instagram.com pages |
+| Notifications page | Redirect from `/accounts/activity/` to home | `/accounts/activity/` |
 
 ## Roadmap
 
