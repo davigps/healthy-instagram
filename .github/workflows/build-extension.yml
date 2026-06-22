@@ -1,17 +1,6 @@
 name: Build Extension
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "extension/**"
-      - "scripts/**"
-      - ".github/workflows/build-extension.yml"
-  pull_request:
-    paths:
-      - "extension/**"
-      - "scripts/**"
-      - ".github/workflows/build-extension.yml"
   workflow_dispatch:
 
 permissions:
