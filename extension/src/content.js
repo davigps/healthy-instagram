@@ -23,6 +23,8 @@
     'div[role="menuitem"] a[href*="/reels"]',
   ];
 
+  const NAV_SCAN_ROOTS = ["nav", "footer", '[role="navigation"]'];
+
   function isInstagramReelsLink(element) {
     if (!(element instanceof HTMLAnchorElement)) {
       return false;
@@ -85,12 +87,29 @@
       }
     }
 
-    // Fallback: scan anchor tags only when selectors miss due to DOM changes.
-    for (const link of document.querySelectorAll("a[href]")) {
-      if (isInstagramReelsLink(link)) {
-        hideReelsIconNavItem(link);
+    // Fallback: scan nav containers only when primary selectors miss due to DOM changes.
+    for (const rootSelector of NAV_SCAN_ROOTS) {
+      for (const root of document.querySelectorAll(rootSelector)) {
+        for (const link of root.querySelectorAll("a[href]")) {
+          if (isInstagramReelsLink(link)) {
+            hideReelsIconNavItem(link);
+          }
+        }
       }
     }
+  }
+
+  let hideScheduled = false;
+
+  function scheduleHideReelsIcons() {
+    if (hideScheduled) {
+      return;
+    }
+    hideScheduled = true;
+    requestAnimationFrame(() => {
+      hideScheduled = false;
+      hideReelsIcons();
+    });
   }
 
   function startObserver() {
@@ -100,14 +119,14 @@
     }
 
     const observer = new MutationObserver(() => {
-      hideReelsIcons();
+      scheduleHideReelsIcons();
     });
 
     observer.observe(root, {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ["href", "aria-label", "class"],
+      attributeFilter: ["href", "aria-label"],
     });
   }
 

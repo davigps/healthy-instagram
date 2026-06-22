@@ -13,7 +13,7 @@ Selectors are intentionally based on URLs and accessibility labels instead of In
 
 ## Project structure
 
-```
+```text
 extension/
   manifest.json          # Manifest V3 (Safari 15.4+ / iOS 15+)
   src/
