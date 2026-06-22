@@ -1,0 +1,77 @@
+name: Build Extension
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "extension/**"
+      - "scripts/**"
+      - ".github/workflows/build-extension.yml"
+  pull_request:
+    paths:
+      - "extension/**"
+      - "scripts/**"
+      - ".github/workflows/build-extension.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chrome:
+    name: Package Chrome extension
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip extension for Chrome
+        run: |
+          (cd extension && zip -r ../healthy-instagram-chrome.zip .)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: healthy-instagram-chrome
+          path: healthy-instagram-chrome.zip
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Chrome install instructions
+        run: |
+          {
+            echo "### Chrome extension"
+            echo "1. Download **healthy-instagram-chrome** from the workflow artifacts."
+            echo "2. Unzip the archive."
+            echo "3. Open \`chrome://extensions\`, enable **Developer mode**, then **Load unpacked** and select the unzipped folder."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  ios:
+    name: Build Safari / iOS wrapper
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Xcode project
+        run: |
+          chmod +x scripts/convert-for-safari.sh
+          ./scripts/convert-for-safari.sh
+
+      - name: Zip Xcode project for iPhone
+        run: |
+          (cd ios && zip -r ../healthy-instagram-ios.zip HealthyInstagram)
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: healthy-instagram-ios
+          path: healthy-instagram-ios.zip
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: iPhone install instructions
+        run: |
+          {
+            echo "### iPhone (Safari)"
+            echo "1. Download **healthy-instagram-ios** from the workflow artifacts."
+            echo "2. On a Mac, unzip and open \`HealthyInstagram.xcodeproj\` in Xcode."
+            echo "3. Select your iPhone as the run destination, set your signing team, then build and run."
+            echo "4. On iPhone: **Settings → Safari → Extensions** → enable **Healthy Instagram**."
+          } >> "$GITHUB_STEP_SUMMARY"
