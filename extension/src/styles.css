@@ -1,0 +1,21 @@
+/* Healthy Instagram — hide rules applied via content script class */
+
+.healthy-instagram-hidden {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Sidebar / menu Reels row (desktop) */
+div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > a[href="/reels/"]),
+div[data-visualcompletion="ignore-dynamic"] > div:has(> span > div > a[href="/reels"]) {
+  display: none !important;
+}
+
+/* Bottom navigation Reels tab (mobile web) */
+nav a[href="/reels/"],
+nav a[href="/reels"],
+footer a[href="/reels/"],
+footer a[href="/reels"] {
+  display: none !important;
+}
